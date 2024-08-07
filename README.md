@@ -1,2 +1,2 @@
 # GoWild
-creative and unconventional code
+This repository is a playground for my Go experiments. Expect the unexpected! Here, you'll find a collection of fun, quirky, and sometimes downright crazy Go projects. These are not production-ready, but they're a showcase of my passion for the language and my love for coding without constraints.
