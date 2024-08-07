@@ -67,7 +67,7 @@ func analyzeWordFrequency(s []string) map[string]int {
 	return wordFrequency
 }
 
-func getTopNWords(frequency map[string]int, n int64) []wordCount {
+func getTopNWords(frequency map[string]int, n int) []wordCount {
 	var wordCountSlice []wordCount
 	for word, count := range frequency {
 		wordCountSlice = append(wordCountSlice, wordCount{word, count})
@@ -92,7 +92,7 @@ func main() {
 	fmt.Print("Insert number of top counts: ")
 	fmt.Scan(&numberStr)
 	fmt.Println("<<<---------->>>----------<<<---------->>>----------<<<---------->>>")
-	number, _ := strconv.ParseInt(numberStr, 10, 64)
+	number, _ := strconv.Atoi(numberStr) //strconv.Atoi handles invalid integer formats; safer
 	result := getTopNWords(data, number)
 	fmt.Print(result)
 
