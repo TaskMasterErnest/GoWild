@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "Telephone",
+  "description": "The device to make calls",
+  "price": 19.99,
+  "category": "Electronics",
+  "inventory": 10,
+  "images": [
+    "image1.jpg",
+    "image2.jpg"
+  ]
+}
