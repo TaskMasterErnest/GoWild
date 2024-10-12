@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
 	"errors"
 	"flag"
@@ -10,19 +11,17 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 )
 
 var (
 	ErrFileNotFound = errors.New("file not found!")
 	input           string
-	dataStore       []int
 	sumOfCorrect    int
-	sumOfWrong      int
+	totalRecords    int
 )
 
-func readCSV(file io.Reader) {
+func readCSV(file io.Reader, done chan bool) {
 	reader := csv.NewReader(file)
 
 	for {
@@ -49,18 +48,15 @@ func readCSV(file io.Reader) {
 
 		if userInput == answer {
 			sumOfCorrect++
-		} else {
-			sumOfWrong++
 		}
 	}
 
-	fmt.Printf("You got %d right out of %d.\n", sumOfCorrect, sumOfWrong+sumOfCorrect)
-
+	done <- true
 }
 
 func main() {
 	csvFile := flag.String("f", "", "CSV quiz file")
-	timer := flag.Duration("t", 30*time.Second, "Timer for quiz")
+	timing := flag.Int("t", 30, "Timer for quiz")
 	flag.Parse()
 
 	if *csvFile == "" {
@@ -76,27 +72,31 @@ func main() {
 	}
 	defer file.Close()
 
-	// start timer function
-	var wg sync.WaitGroup
+	// get total file size
+	scanFile(file)
+	file.Seek(0, io.SeekStart)
 
-	// handle the timer routine
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		time.Sleep(*timer)
-		fmt.Println("Timer Expired. Stopping Quiz!!!")
-		os.Exit(1)
-	}()
+	done := make(chan bool)
+	go readCSV(file, done)
 
-	// handle the main routine
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for {
-			readCSV(file)
-			os.Exit(1)
-		}
-	}()
+	// timing
+	timer := time.NewTimer(time.Duration(*timing) * time.Second)
+	select {
+	case <-timer.C:
+		fmt.Printf("\nTimer expired! You got %d right out of %d.\n", sumOfCorrect, totalRecords)
+	case <-done:
+		fmt.Printf("Quiz completed! You got %d right out of %d.\n", sumOfCorrect, totalRecords)
+	}
+}
 
-	wg.Wait()
+func scanFile(file io.Reader) error {
+	// get the total number of records
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		totalRecords++
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+	return nil
 }
