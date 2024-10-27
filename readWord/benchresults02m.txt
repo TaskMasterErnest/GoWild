@@ -1,0 +1,11 @@
+goos: linux
+goarch: amd64
+pkg: github.com/GoWild/readWord
+cpu: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
+BenchmarkReadWords-4   	      10	    299295 ns/op	   22197 B/op	     403 allocs/op
+BenchmarkReadWords-4   	      10	    286157 ns/op	   22197 B/op	     403 allocs/op
+BenchmarkReadWords-4   	      10	    282313 ns/op	   22226 B/op	     403 allocs/op
+BenchmarkReadWords-4   	      10	    325948 ns/op	   22197 B/op	     403 allocs/op
+BenchmarkReadWords-4   	      10	    280714 ns/op	   22216 B/op	     403 allocs/op
+PASS
+ok  	github.com/GoWild/readWord	120.254s
