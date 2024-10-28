@@ -17,8 +17,7 @@ To benchmark and analyze two different implementations that perform the same fun
 
 ## Implementation Details
 
-### Scanner Implementation (`useScanWords
-`)
+### Scanner Implementation (`useScanWords`)
 ```go
 scanner := bufio.NewScanner(f)
 scanner.Split(bufio.ScanWords)
@@ -33,16 +32,13 @@ This implementation uses regular expressions to match non-whitespace sequences, 
 
 ## How to Run
 
-1. **Select Implementation**: Choose either `useScanWords
-` or `useRegex` by modifying the main routine and benchmark function:
+1. **Select Implementation**: Choose either `useScanWords` or `useRegex` by modifying the main routine and benchmark function:
 ```go
 // main.go
-fmt.Println(useScanWords
-(*filename))
+fmt.Println(useScanWords(*filename))
 
 // main_test.go
-wordCount, err := useScanWords
-(filename)
+wordCount, err := useScanWords(filename)
 ```
 
 2. **Run Benchmarks**: Execute the benchmark with memory statistics:
