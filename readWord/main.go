@@ -17,7 +17,7 @@ import (
 	"regexp"
 )
 
-func useScanLn(file string) (int, error) {
+func useScanWords(file string) (int, error) {
 	// open the file
 	f, err := os.Open(file)
 	if err != nil {
@@ -76,5 +76,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(useScanLn(*filename))
+	fmt.Println(useScanWords(*filename))
 }

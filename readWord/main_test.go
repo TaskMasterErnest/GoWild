@@ -14,7 +14,7 @@ func BenchmarkReadWords(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, filename := range filenames {
 			b.StopTimer() // Stop the timer to exclude setup time
-			wordCount, err := useScanLn(filename)
+			wordCount, err := useScanWords(filename)
 			b.StartTimer() // Restart the timer before measuring `useBufio` time
 
 			if err != nil {
