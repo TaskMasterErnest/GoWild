@@ -44,42 +44,26 @@ func monthNumToName(num int) string {
 	}
 }
 
-func main() {
-	// read arguments from Stdin
-	fmt.Print("Enter date: ")
-	reader := bufio.NewReader(os.Stdin)
-
-	input, err := reader.ReadString('\n')
-	if err != nil {
-		fmt.Println("error reading input: ", err)
-		os.Exit(1)
-	}
-
-	// check if format has / or - in dates and sanitize
-	// replace these with empty spaces
+func normalizeDate(input string) (string, error) {
+	// Sanitize input
 	input = strings.TrimSpace(input)
 	input = strings.ReplaceAll(input, "/", " ")
 	input = strings.ReplaceAll(input, "-", " ")
 
-	// split into components and perform length validation
-	// use Fields to handle multiple spaces
+	// Split into components
 	dateValues := strings.Fields(input)
 	if len(dateValues) != 3 {
-		fmt.Println("Invalid date format. Expected MM/DD/YYYY, MM DD YYYY or MM-DD-YYYY.")
-		os.Exit(1)
+		return "", fmt.Errorf("invalid date format. Expected MM/DD/YYYY, MM DD YYYY or MM-DD-YYYY")
 	}
 
-	// check if month is either a string or an int
-	// using regex to check for these
+	// Process month
 	letters := regexp.MustCompile(`^[a-zA-Z]+$`)
 	digits := regexp.MustCompile(`^[0-9]+$`)
 
 	switch {
 	case letters.MatchString(dateValues[0]):
 		if len(dateValues[0]) > 3 {
-			// Take first three letters
 			monthStr := dateValues[0][:3]
-			// Convert to title case
 			monthStr = strings.ToLower(monthStr)
 			dateValues[0] = string(unicode.ToUpper(rune(monthStr[0]))) + monthStr[1:]
 		}
@@ -88,25 +72,33 @@ func main() {
 		chMonth := monthNumToName(month)
 		dateValues[0] = chMonth
 	default:
-		fmt.Println("Invalid month format specification.")
-		os.Exit(1)
+		return "", fmt.Errorf("invalid month format specification")
 	}
 
-	// check if day is a valid day
-	day, err := strconv.Atoi(dateValues[1])
-	if err != nil || day < 1 || day > 31 {
-		fmt.Println("Day must be between 1 and 31")
-		os.Exit(1)
-	}
-
-	// check if year given is a valid year
+	// Process year
 	year, err := strconv.Atoi(dateValues[2])
 	if err != nil || year <= 999 {
-		fmt.Println("Year must be a valid 4-digit value.")
+		return "", fmt.Errorf("year must be a valid 4-digit value")
+	}
+
+	// Return formatted date
+	return fmt.Sprintf("%s %s %d", dateValues[0], dateValues[1], year), nil
+}
+
+func main() {
+	// Interactive mode
+	fmt.Fprintf(os.Stderr, "Enter date: ")
+	reader := bufio.NewReader(os.Stdin)
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading input: %v\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("%s %d %d\n", dateValues[0], day, year)
-	// fmt.Printf("%T %T %T\n", dateValues[0], day, year)
-
+	result, err := normalizeDate(input)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		os.Exit(1)
+	}
+	fmt.Println(result)
 }
