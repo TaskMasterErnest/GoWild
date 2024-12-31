@@ -10,7 +10,7 @@ import (
 	"unicode"
 )
 
-var dateNums = [3]string{}
+// var dateNums = [3]string{}
 
 // match the month number to the abbreviated name
 func monthNumToName(num int) string {
