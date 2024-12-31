@@ -106,6 +106,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%s %s %d\n", dateValues[0], dateValues[1], year)
+	fmt.Printf("%s %d %d\n", dateValues[0], day, year)
+	// fmt.Printf("%T %T %T\n", dateValues[0], day, year)
 
 }
