@@ -1,0 +1,142 @@
+# create a namespace called "webhook"
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webhook
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webhook-server-tls
+  namespace: webhook
+type: tls
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURkRENDQWx5Z0F3SUJBZ0lVQ2FZMnkrRThUVit2VDI5TXhaUEg3TlZhK0h3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd09qRWpNQ0VHQTFVRUF3d2FkMlZpYUc5dmF5MXpaWEoyWlhJdWQyVmlhRzl2YXk1emRtTXhFekFSQmdOVgpCQW9NQ2t0MVltVnlibVYwWlhNd0hoY05NalV3TVRNd01UQTBNakl5V2hjTk1qWXdNVE13TVRBME1qSXlXakE2Ck1TTXdJUVlEVlFRRERCcDNaV0pvYjI5ckxYTmxjblpsY2k1M1pXSm9iMjlyTG5OMll6RVRNQkVHQTFVRUNnd0sKUzNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSkZBblVHagoxekxFazFVYnk1c1B2Vmc0L1NCVjFKQmJsVmdTbTgvRDhSd1REcWx1VzdNT3Q2czJVeHFhR1NPeTlMK1E3L3ZXCjFNMUI0Yjc0T3dTSzRQaUQ0WDRHbForai9sWmEzL29YRkMrYTdOaXVSWlZ4aExhRlRnai82YnNabGFYVW5nQmEKcTVRTmc5Qk16TU1rcmxnVFFGclVxNUxhemlpN1ZWS1gzMEtMcmlyU0JhMlB0UWNMQ1Vwd0trL0VoeDBKTXdZNwpzb2xXUzlTeVIrNW4xaVgvWE5uZWtqME5zc0Vma0NjR1dSbExOb1dZVDRHNlV2WUdjUFRHWXl1SHg0cDJhcXg0CmptcnY5YklVRmJtUEQ5OWpOSkdPVlR5THFVMTMzLzhkc2lwSVpHc3NlUGM1NXk1M2o4VVRUTU1oVHhnVGVqTlkKOUlnVlhqaGdVa29IWFJVQ0F3RUFBYU55TUhBd1R3WURWUjBSQkVnd1JvSWFkMlZpYUc5dmF5MXpaWEoyWlhJdQpkMlZpYUc5dmF5NXpkbU9DS0hkbFltaHZiMnN0YzJWeWRtVnlMbmRsWW1odmIyc3VjM1pqTG1Oc2RYTjBaWEl1CmJHOWpZV3d3SFFZRFZSME9CQllFRklVeGZMWm1KN1dLbmZsMzhNd25kU0JhN1FEa01BMEdDU3FHU0liM0RRRUIKQ3dVQUE0SUJBUUExQXBLVWF5d1RpbEJGeGQwZkx1S3pkL0NpWE1yN2ZlVDdGVjB2YXJVNi9Ed3JEQ2Q5d05iSwpvWEpXaHczM05sNm02UnNOVTNwOEpGRUZlYS8zOHFod2RRUzZBUFRuWld0VnlPNGErSUlXQ1MwaktpV3Fiek1LCk5KalBrNG1SSWM0WE14SDBOc2tOb2N4QmorTlRXU3ptdnJjQkxaeUhLTVd3ZFlMRGRHRE81cDJZczlUOEl6Wi8KV0wybThCN013bXA4SWxBa1FYV0VwQklaNUJlNE9OdXNvYml6Q2cxc3FBTG56QU9XeW9sUkpRSWZoeTZWODF2ZwpRL09vMEpacWZVdk5lMmwweXpyV1lhTm5NWTZtdmdoS2lPb1haL1JWelBML1BwWGIzR2lrb0pTZUtlUGlvbTFtCnhxclNDdWZyUjJ0WVZYQlJ0MDBVa2NiLzM1UFhBclNxCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0=
+  tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2Z0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktnd2dnU2tBZ0VBQW9JQkFRQ1JRSjFCbzljeXhKTlYKRzh1YkQ3MVlPUDBnVmRTUVc1VllFcHZQdy9FY0V3NnBibHV6RHJlck5sTWFtaGtqc3ZTL2tPLzcxdFROUWVHKworRHNFaXVENGcrRitCcFdmby81V1d0LzZGeFF2bXV6WXJrV1ZjWVMyaFU0SS8rbTdHWldsMUo0QVdxdVVEWVBRClRNekRKSzVZRTBCYTFLdVMyczRvdTFWU2w5OUNpNjRxMGdXdGo3VUhDd2xLY0NwUHhJY2RDVE1HTzdLSlZrdlUKc2tmdVo5WWwvMXpaM3BJOURiTEJINUFuQmxrWlN6YUZtRStCdWxMMkJuRDB4bU1yaDhlS2RtcXNlSTVxNy9XeQpGQlc1ancvZll6U1JqbFU4aTZsTmQ5Ly9IYklxU0dSckxIajNPZWN1ZDQvRkUwekRJVThZRTNveldQU0lGVjQ0CllGSktCMTBWQWdNQkFBRUNnZ0VBSGsyTklUc1ZzOFUzK1lzRmRMR1piblRoTmlSQjV1WDhaN1htSkxlN3J3QTQKMEZjeU1VNXlPZmxvNkFWYkZrd0k3SWhIME5IMmJtWCt1ekVkV3VyQVdZaGwvRDFTYk00eFN3SEZkVzdvS3JCWApGak54VithcGFjeXd4WWJpVThMWUtoTUw3WVg5QXJPNUdyVlRDS2szNkM4SC80c2J5bFQwcXFHK2dLOG5pRUc4ClU5elJxT3BTdHBTbGI2Yk5nZmJHQXM5dDcrTlppMi8zdk9yNGVoUDY0QWJjUWV4U1hhL091NUhyM2R5YkhiaFAKMFp0WWEzNHUwM1ZTbnp2UkRaS3ZaamVQVkFKempJOWpyQ2ZqQVkrQ3FYanFJVG4ya3Faamk4aW9WSHZrMXB4egpzd09tVUdUUGJSRk13NVRuYnZkZW92NjZFRXdoWjFra1ZrcTFDZHZiTVFLQmdRREdVeHI0U0FIMEZHNUYxWUxOCnV5NmZOdE9nVHFJU0NidXBvM3UxMWRLZ0FCZkRmYWx5UXZvYUV5TTZ0czhVOUR2eEtiRVJPRjA1blcvRWtPYWUKMHowSlpBaXBMUFpwSEJtLzVUV0tkeUdqR1ppZUdHWFNPVWg5L3RzSjFPbFMyVEx0YkU1KzM3SytBa0NjNWl4eQp5TjR2Y3FkeFZxSzl4YzEzZEdPbmNPODk3UUtCZ1FDN2ZtR25MZmFkQy9uc1RBVlF6cngxWFY0OGhFRWFQQk9rClEyc0c4eWVyVnZUWFBKd1psU0k5WjJBcmRyM2FTTDB4M24rRjFUcFhnWkp1VkU1MHlqWkNjY0ZJRUdwVC9HZ2gKQzAvUnhpT2NvWG1yM010MWFzNGtiRUlCZGZkRlUvL1M0Z0hmbmFKZXFNZC91eitvWStlMEFZMzZ5QTVPSXNnegp4S0hTdGFiMnlRS0JnUUNnM2ZJbmFBa2xtWmprems0K1lGRnQxY1FNNlJ0dk5EUGpZdmRLeERrSGpXdTVKMm5WCmc5eG9ZQk9ZWVlaUmdkWkpSTDhhcjdSMnNteGhiZ09TMnRkTWtiYXd1d2JZdFhGeGhSTkwwRndaZHY2alpqaloKTDV2TWozZk9Yc1F2Ym54dnR3Vm94anl2QVJhMTdjSXFEU0trTEFVRDJ2bEFvM3lKSTRCZDVpNDQ5UUtCZ0JhLwpNM3ZENE1xVzNHQmxyTE5zRVlNdnE3SXQzWFFnVzhXdkJEb1luL1J5blV2THA2aVc1a3VLMGlrVHc5N0t1bUZsCmZCVXhsRjF2YytOOHlQUDBZSGJaTkRqWS9QMXBmdnliVWJqQ2tDbDlrYlJmR2pRSm5DN2hEM1Q3NmQ3NFhPNHAKeTA1azRvRVhldlN0TkFEcTlmNXB2ZDd5RElKQVNBZTMwR1l1OGEyNUFvR0JBTEw4WGVCbUpjbUhvQjZzYktmSQpvRzFCYjc2bHlkSWFtN3pzWWt4L1F0UFVXYzVmWVN5QUdReVZ1VWVseVBHb2JUbVVCbWpWK0lBYmFWQ2lEK0x5CmxFV1hSUWJocWNubEE4S0ptdXFDa1BCZkhjbWRtRVlFbEdZSHk4ajJ5RGVCalAyVC9Rejc0Yk9tOXloNFVzTXIKTTVaOUpCN0dpcHdKRkh2c0FyL3Ywc2NNCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-server
+  namespace: webhook
+  labels:
+    app: webhook-server
+spec:
+  selector:
+    matchLabels:
+      app: webhook-server
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: webhook-server
+    spec:
+      containers:
+      - name: webhook-server
+        image: wbhk-srv:latest
+        imagePullPolicy: IfNotPresent
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 8443
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 5
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /healthz
+        #     port: 8443
+        #     scheme: HTTPS
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 2
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   periodSeconds: 10
+        ports:
+        - containerPort: 8443
+          name:  webhook-port
+        volumeMounts:
+        - name: webhook-tls-certs
+          mountPath: /etc/webhook/certs
+          readOnly: true
+      volumes:
+        - name: webhook-tls-certs
+          secret:
+            secretName: webhook-server-tls
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-server
+  namespace: webhook
+spec:
+  selector:
+    app: webhook-server
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+  - name: webhook-server
+    protocol: TCP
+    port: 443
+    targetPort: 8443
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: pod-annotation-webhook
+webhooks:
+  - name: webhook-server.webhook.svc
+    admissionReviewVersions: ["v1"]
+    clientConfig:
+      service:
+        name: webhook-server        # Name of your webhook service
+        namespace: webhook          # Namespace where the service runs
+        path: "/mutate"             # Endpoint path in your webhook
+        port: 443                   # TLS port (typically 443)
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURkRENDQWx5Z0F3SUJBZ0lVQ2FZMnkrRThUVit2VDI5TXhaUEg3TlZhK0h3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd09qRWpNQ0VHQTFVRUF3d2FkMlZpYUc5dmF5MXpaWEoyWlhJdWQyVmlhRzl2YXk1emRtTXhFekFSQmdOVgpCQW9NQ2t0MVltVnlibVYwWlhNd0hoY05NalV3TVRNd01UQTBNakl5V2hjTk1qWXdNVE13TVRBME1qSXlXakE2Ck1TTXdJUVlEVlFRRERCcDNaV0pvYjI5ckxYTmxjblpsY2k1M1pXSm9iMjlyTG5OMll6RVRNQkVHQTFVRUNnd0sKUzNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSkZBblVHagoxekxFazFVYnk1c1B2Vmc0L1NCVjFKQmJsVmdTbTgvRDhSd1REcWx1VzdNT3Q2czJVeHFhR1NPeTlMK1E3L3ZXCjFNMUI0Yjc0T3dTSzRQaUQ0WDRHbForai9sWmEzL29YRkMrYTdOaXVSWlZ4aExhRlRnai82YnNabGFYVW5nQmEKcTVRTmc5Qk16TU1rcmxnVFFGclVxNUxhemlpN1ZWS1gzMEtMcmlyU0JhMlB0UWNMQ1Vwd0trL0VoeDBKTXdZNwpzb2xXUzlTeVIrNW4xaVgvWE5uZWtqME5zc0Vma0NjR1dSbExOb1dZVDRHNlV2WUdjUFRHWXl1SHg0cDJhcXg0CmptcnY5YklVRmJtUEQ5OWpOSkdPVlR5THFVMTMzLzhkc2lwSVpHc3NlUGM1NXk1M2o4VVRUTU1oVHhnVGVqTlkKOUlnVlhqaGdVa29IWFJVQ0F3RUFBYU55TUhBd1R3WURWUjBSQkVnd1JvSWFkMlZpYUc5dmF5MXpaWEoyWlhJdQpkMlZpYUc5dmF5NXpkbU9DS0hkbFltaHZiMnN0YzJWeWRtVnlMbmRsWW1odmIyc3VjM1pqTG1Oc2RYTjBaWEl1CmJHOWpZV3d3SFFZRFZSME9CQllFRklVeGZMWm1KN1dLbmZsMzhNd25kU0JhN1FEa01BMEdDU3FHU0liM0RRRUIKQ3dVQUE0SUJBUUExQXBLVWF5d1RpbEJGeGQwZkx1S3pkL0NpWE1yN2ZlVDdGVjB2YXJVNi9Ed3JEQ2Q5d05iSwpvWEpXaHczM05sNm02UnNOVTNwOEpGRUZlYS8zOHFod2RRUzZBUFRuWld0VnlPNGErSUlXQ1MwaktpV3Fiek1LCk5KalBrNG1SSWM0WE14SDBOc2tOb2N4QmorTlRXU3ptdnJjQkxaeUhLTVd3ZFlMRGRHRE81cDJZczlUOEl6Wi8KV0wybThCN013bXA4SWxBa1FYV0VwQklaNUJlNE9OdXNvYml6Q2cxc3FBTG56QU9XeW9sUkpRSWZoeTZWODF2ZwpRL09vMEpacWZVdk5lMmwweXpyV1lhTm5NWTZtdmdoS2lPb1haL1JWelBML1BwWGIzR2lrb0pTZUtlUGlvbTFtCnhxclNDdWZyUjJ0WVZYQlJ0MDBVa2NiLzM1UFhBclNxCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0=  # CA certificate for verifying webhook's TLS cert
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["pods"]         # Apply to pod resources
+    failurePolicy: Ignore             # What to do if webhook fails (Fail/Ignore)
+    sideEffects: None               # No side effects outside API call
+    timeoutSeconds: 5
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: pod-annotation-validating-webhook
+webhooks:
+  - name: webhook-server.webhook.svc
+    admissionReviewVersions: ["v1"]
+    clientConfig:
+      service:
+        name: webhook-server
+        namespace: webhook
+        path: "/validate"
+        port: 443
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURkRENDQWx5Z0F3SUJBZ0lVQ2FZMnkrRThUVit2VDI5TXhaUEg3TlZhK0h3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd09qRWpNQ0VHQTFVRUF3d2FkMlZpYUc5dmF5MXpaWEoyWlhJdWQyVmlhRzl2YXk1emRtTXhFekFSQmdOVgpCQW9NQ2t0MVltVnlibVYwWlhNd0hoY05NalV3TVRNd01UQTBNakl5V2hjTk1qWXdNVE13TVRBME1qSXlXakE2Ck1TTXdJUVlEVlFRRERCcDNaV0pvYjI5ckxYTmxjblpsY2k1M1pXSm9iMjlyTG5OMll6RVRNQkVHQTFVRUNnd0sKUzNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSkZBblVHagoxekxFazFVYnk1c1B2Vmc0L1NCVjFKQmJsVmdTbTgvRDhSd1REcWx1VzdNT3Q2czJVeHFhR1NPeTlMK1E3L3ZXCjFNMUI0Yjc0T3dTSzRQaUQ0WDRHbForai9sWmEzL29YRkMrYTdOaXVSWlZ4aExhRlRnai82YnNabGFYVW5nQmEKcTVRTmc5Qk16TU1rcmxnVFFGclVxNUxhemlpN1ZWS1gzMEtMcmlyU0JhMlB0UWNMQ1Vwd0trL0VoeDBKTXdZNwpzb2xXUzlTeVIrNW4xaVgvWE5uZWtqME5zc0Vma0NjR1dSbExOb1dZVDRHNlV2WUdjUFRHWXl1SHg0cDJhcXg0CmptcnY5YklVRmJtUEQ5OWpOSkdPVlR5THFVMTMzLzhkc2lwSVpHc3NlUGM1NXk1M2o4VVRUTU1oVHhnVGVqTlkKOUlnVlhqaGdVa29IWFJVQ0F3RUFBYU55TUhBd1R3WURWUjBSQkVnd1JvSWFkMlZpYUc5dmF5MXpaWEoyWlhJdQpkMlZpYUc5dmF5NXpkbU9DS0hkbFltaHZiMnN0YzJWeWRtVnlMbmRsWW1odmIyc3VjM1pqTG1Oc2RYTjBaWEl1CmJHOWpZV3d3SFFZRFZSME9CQllFRklVeGZMWm1KN1dLbmZsMzhNd25kU0JhN1FEa01BMEdDU3FHU0liM0RRRUIKQ3dVQUE0SUJBUUExQXBLVWF5d1RpbEJGeGQwZkx1S3pkL0NpWE1yN2ZlVDdGVjB2YXJVNi9Ed3JEQ2Q5d05iSwpvWEpXaHczM05sNm02UnNOVTNwOEpGRUZlYS8zOHFod2RRUzZBUFRuWld0VnlPNGErSUlXQ1MwaktpV3Fiek1LCk5KalBrNG1SSWM0WE14SDBOc2tOb2N4QmorTlRXU3ptdnJjQkxaeUhLTVd3ZFlMRGRHRE81cDJZczlUOEl6Wi8KV0wybThCN013bXA4SWxBa1FYV0VwQklaNUJlNE9OdXNvYml6Q2cxc3FBTG56QU9XeW9sUkpRSWZoeTZWODF2ZwpRL09vMEpacWZVdk5lMmwweXpyV1lhTm5NWTZtdmdoS2lPb1haL1JWelBML1BwWGIzR2lrb0pTZUtlUGlvbTFtCnhxclNDdWZyUjJ0WVZYQlJ0MDBVa2NiLzM1UFhBclNxCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0=
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["pods"]
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    timeoutSeconds: 5
+    sideEffects: None
+    objectSelector: {}
+    namespaceSelector: {}
