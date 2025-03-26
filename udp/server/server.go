@@ -70,7 +70,7 @@ func main() {
 		}
 
 		// acknowledge reciept/send something back
-		message := fmt.Sprintf("Server received this message: %s", strings.ToUpper(string(buf[:p])))
+		message := fmt.Sprintf("Server received this message: %s\n", strings.ToUpper(string(buf[:p])))
 		// send a response back
 		_, err = conn.WriteToUDP([]byte(message), remoteAddr)
 		if err != nil {
