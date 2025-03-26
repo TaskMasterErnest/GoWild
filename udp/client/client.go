@@ -58,8 +58,6 @@ func main() {
 
 	// loop to send message
 	for {
-		fmt.Print("<<-------------------------<<>>--------------------------->>")
-		fmt.Print("")
 		fmt.Print("Enter message to send (or type 'quit'): ")
 		input, err := reader.ReadString('\n')
 		if err != nil {
